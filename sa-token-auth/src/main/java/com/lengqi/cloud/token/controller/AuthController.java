@@ -1,5 +1,6 @@
 package com.lengqi.cloud.token.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.lengqi.cloud.token.service.AuthService;
 import com.lengqi.common.result.ResultCode;
 import lombok.extern.slf4j.Slf4j;
