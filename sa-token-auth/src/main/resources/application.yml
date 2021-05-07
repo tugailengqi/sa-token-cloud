@@ -16,3 +16,11 @@ spring:
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
 
+logging:
+  level:
+    com.lengqi.cloud.admin.feign.*: debug
+
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000

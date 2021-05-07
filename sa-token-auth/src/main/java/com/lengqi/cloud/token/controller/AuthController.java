@@ -1,5 +1,6 @@
 package com.lengqi.cloud.token.controller;
 
+import com.lengqi.cloud.admin.common.exception.BizException;
 import com.lengqi.cloud.token.service.AuthService;
 import com.lengqi.cloud.admin.common.result.ResultCode;
 import com.lengqi.cloud.admin.common.result.ResultVo;
@@ -23,11 +24,10 @@ public class AuthController {
     @PostMapping("/doLogin")
     public ResultVo doLogin(String key, String password){
 
-        if(DateAndStringUtil.isOneNull(key, password)) {
-            return ResultVo.failed(ResultCode.USERNAME_OR_PASSWORD_ERROR);
+        if (DateAndStringUtil.isOneNull(key,password)){
+            return ResultVo.failed("请输入用户名或密码");
         }
-
-        return null;
+        return authService.doLogin(key, password);
     }
 
     //登出
