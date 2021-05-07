@@ -1,5 +1,6 @@
 package com.lengqi.cloud.admin.controller;
 
+import com.lengqi.cloud.admin.common.result.ResultCode;
 import com.lengqi.cloud.admin.common.result.ResultVo;
 import com.lengqi.cloud.admin.service.SysUserService;
 import com.lengqi.cloud.admin.common.exception.BizException;
@@ -7,10 +8,7 @@ import com.lengqi.cloud.admin.common.utils.DateAndStringUtil;
 import com.lengqi.cloud.user.entity.SysUser;
 import com.lengqi.cloud.admin.vo.SysUserVO;
 import org.springframework.cglib.beans.BeanCopier;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -34,14 +32,26 @@ public class SysUserController {
     //查询用户
     @PostMapping("/selectUser")
     public ResultVo<SysUserVO> selectUser(@RequestParam String username, @RequestParam String password){
-        if (DateAndStringUtil.isOneNull(username,password)){
-            throw new BizException("用户名或密码不能为空");
+        try {
+            if (DateAndStringUtil.isOneNull(username,password)){
+                throw new BizException("用户名或密码不能为空");
+            }
+            SysUserVO sysUserVO = new SysUserVO();
+            SysUser sysUser = sysUserService.selectByUsername(username, password);
+            BeanCopier.create(sysUser.getClass(),sysUserVO.getClass(),false).copy(sysUser,
+                    sysUserVO,
+                    null);
+            return ResultVo.success(sysUserVO);
+        } catch (BizException e) {
+            return ResultVo.failed(ResultCode.USERNAME_OR_PASSWORD_ERROR);
         }
+    }
+
+    @GetMapping("/findUserById")
+    public ResultVo<SysUserVO> findUserById(@RequestParam Long id){
+           SysUser sysUser = sysUserService.selectUserById(id);
         SysUserVO sysUserVO = new SysUserVO();
-        SysUser sysUser = sysUserService.selectByUsername(username, password);
-        BeanCopier.create(sysUser.getClass(),sysUserVO.getClass(),false).copy(sysUser,
-                sysUserVO,
-                null);
+        BeanCopier.create(sysUser.getClass(),sysUserVO.getClass(),false).copy(sysUser,sysUserVO,null);
         return ResultVo.success(sysUserVO);
     }
 

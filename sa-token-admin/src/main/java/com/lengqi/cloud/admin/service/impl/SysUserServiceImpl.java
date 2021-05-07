@@ -33,5 +33,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUser;
     }
 
+    @Override
+    public SysUser selectUserById(Long id) {
+        SysUser sysUser = getById(id);
+        if (StringUtils.isEmpty(sysUser)){
+            throw new BizException("查询用户为空");
+        }
+        return sysUser;
+    }
+
 }
 

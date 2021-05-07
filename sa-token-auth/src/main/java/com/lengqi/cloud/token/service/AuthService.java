@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.lengqi.cloud.admin.common.exception.BizException;
+import com.lengqi.cloud.admin.common.exception.GlobalExceptionHandler;
 import com.lengqi.cloud.admin.common.result.ResultCode;
 import com.lengqi.cloud.admin.common.result.ResultVo;
 import com.lengqi.cloud.admin.common.utils.DateAndStringUtil;
@@ -26,22 +27,34 @@ public class AuthService {
     private SysUserClient sysUserClient;
 
     public ResultVo<Object> doLogin(String key, String password){
-        ResultVo<SysUserVO> resultVo = sysUserClient.selectUser(key, password);
-        SysUserVO sysUserVO = resultVo.getData();
-        log.info(sysUserVO.getUsername() + "登录成功");
-        if (StringUtils.isEmpty(sysUserVO)){
-            return ResultVo.failed(ResultCode.USER_NOT_EXIST);
+        try {
+            ResultVo<SysUserVO> resultVo = sysUserClient.selectUser(key, password);
+            SysUserVO sysUserVO = resultVo.getData();
+            if (StringUtils.isEmpty(sysUserVO)){
+                return ResultVo.failed(ResultCode.USERNAME_OR_PASSWORD_ERROR);
+            }
+            log.info(sysUserVO.getUsername() + "登录成功");
+            if (StringUtils.isEmpty(sysUserVO)){
+                return ResultVo.failed(ResultCode.USER_NOT_EXIST);
+            }
+            StpUtil.setLoginId(sysUserVO.getId());
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            return ResultVo.success(tokenInfo);
+        } catch (Exception e) {
+            return ResultVo.failed(e.getMessage());
         }
-        StpUtil.setLoginId(sysUserVO.getId());
-        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        return ResultVo.success(tokenInfo);
     }
 
     public ResultVo<Object> logout(){
-        StpUtil.logout();
-        Long loginId = (Long) StpUtil.getLoginId();
-        sysUserClient.
-        log.info(StpUtil.getLoginId());
-        return ResultVo.success("登出成功");
+        try {
+            StpUtil.logout();
+            Long loginId = (Long) StpUtil.getLoginId();
+            ResultVo<SysUserVO> resultVo = sysUserClient.findUserById(loginId);
+            SysUserVO userVO = resultVo.getData();
+            log.info(userVO.getNickname()+"已退出登录");
+            return ResultVo.success("登出成功");
+        } catch (Exception e) {
+            return ResultVo.failed("退出登录异常");
+        }
     }
 }

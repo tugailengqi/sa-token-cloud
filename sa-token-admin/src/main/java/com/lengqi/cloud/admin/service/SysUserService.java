@@ -6,5 +6,6 @@ public interface SysUserService {
 
     SysUser selectByUsername(String username, String password);
 
+    SysUser selectUserById(Long id);
 }
 

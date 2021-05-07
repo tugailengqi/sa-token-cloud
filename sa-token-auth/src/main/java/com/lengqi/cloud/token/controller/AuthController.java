@@ -32,7 +32,7 @@ public class AuthController {
 
     //登出
     @PostMapping("/logout")
-    public ResultCode logout(){
-        return null;
+    public ResultVo<Object> logout(){
+        return authService.logout();
     }
 }
