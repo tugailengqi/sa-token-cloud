@@ -1,4 +1,4 @@
-package com.lengqi.user.entity;
+package com.lengqi.cloud.user.entity;
 
 import lombok.Data;
 

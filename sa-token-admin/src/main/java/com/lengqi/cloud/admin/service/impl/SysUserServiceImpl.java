@@ -1,48 +1,37 @@
 package com.lengqi.cloud.admin.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lengqi.cloud.admin.mapper.SysPermissionsMapper;
-import com.lengqi.user.entity.SysPermissions;
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.lengqi.user.entity.SysUser;
 import com.lengqi.cloud.admin.mapper.SysUserMapper;
 import com.lengqi.cloud.admin.service.SysUserService;
+import com.lengqi.cloud.admin.common.exception.BizException;
+import com.lengqi.cloud.admin.common.result.ResultCode;
+import com.lengqi.cloud.user.entity.SysUser;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+import org.springframework.util.StringUtils;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     @Resource
-    private SysUserMapper sysUserMapper;
+    private PasswordEncoder passwordEncoder;
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
-        return sysUserMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public int insert(SysUser record) {
-        return sysUserMapper.insert(record);
-    }
-
-    @Override
-    public int insertSelective(SysUser record) {
-        return sysUserMapper.insertSelective(record);
-    }
-
-    @Override
-    public SysUser selectByPrimaryKey(Long id) {
-        return sysUserMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(SysUser record) {
-        return sysUserMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int updateByPrimaryKey(SysUser record) {
-        return sysUserMapper.updateByPrimaryKey(record);
+    public SysUser selectByUsername(String username,String password) {
+        SysUser sysUser = getOne(new QueryWrapper<SysUser>().eq("username", username));
+        if (StringUtils.isEmpty(sysUser)){
+            throw new BizException(ResultCode.USER_NOT_EXIST);
+        }
+        boolean matches = passwordEncoder.matches(password, sysUser.getPassword());
+        if (!matches){
+            throw new BizException(ResultCode.USERNAME_OR_PASSWORD_ERROR);
+        }
+        StpUtil.setLoginId(sysUser.getId());
+        return sysUser;
     }
 
 }

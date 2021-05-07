@@ -1,8 +1,9 @@
 package com.lengqi.cloud.token.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.lengqi.cloud.token.service.AuthService;
-import com.lengqi.common.result.ResultCode;
+import com.lengqi.cloud.admin.common.result.ResultCode;
+import com.lengqi.cloud.admin.common.result.ResultVo;
+import com.lengqi.cloud.admin.common.utils.DateAndStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,11 @@ public class AuthController {
 
     //登录
     @PostMapping("/doLogin")
-    public ResultCode doLogin(String key,String password){
+    public ResultVo doLogin(String key, String password){
+
+        if(DateAndStringUtil.isOneNull(key, password)) {
+            return ResultVo.failed(ResultCode.USERNAME_OR_PASSWORD_ERROR);
+        }
 
         return null;
     }

@@ -1,4 +1,4 @@
-package com.lengqi.common.result;
+package com.lengqi.cloud.admin.common.result;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

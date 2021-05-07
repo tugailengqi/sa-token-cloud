@@ -1,16 +1,16 @@
-package com.lengqi.user.entity;
+package com.lengqi.cloud.user.entity;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class SysUserRole implements Serializable {
+public class SysRolePermission implements Serializable {
     private Integer id;
 
-    private Long userId;
-
     private Integer roleId;
+
+    private Integer permissionId;
 
     private static final long serialVersionUID = 1L;
 }
