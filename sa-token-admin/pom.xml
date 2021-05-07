@@ -80,8 +80,8 @@
         </dependency>
         <dependency>
             <groupId>cn.dev33</groupId>
-            <artifactId>sa-token</artifactId>
-            <version>1.4.0</version>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.18.0</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
