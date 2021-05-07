@@ -14,7 +14,6 @@ import java.io.Serializable;
 public enum ResultCode implements IResultCode, Serializable {
 
     SUCCESS("00000", "一切ok"),
-
     USER_ERROR("A0001", "用户端错误"),
     USER_LOGIN_ERROR("A0200", "用户登录异常"),
 

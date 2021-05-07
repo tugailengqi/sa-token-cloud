@@ -14,6 +14,7 @@ import jdk.management.resource.ResourceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 
@@ -34,5 +35,13 @@ public class AuthService {
         StpUtil.setLoginId(sysUserVO.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return ResultVo.success(tokenInfo);
+    }
+
+    public ResultVo<Object> logout(){
+        StpUtil.logout();
+        Long loginId = (Long) StpUtil.getLoginId();
+        sysUserClient.
+        log.info(StpUtil.getLoginId());
+        return ResultVo.success("登出成功");
     }
 }

@@ -12,4 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface SysUserClient {
     @PostMapping("/sys_user/selectUser")
     public ResultVo<SysUserVO> selectUser(@RequestParam String username, @RequestParam String password);
+
+    public
 }
