@@ -31,6 +31,7 @@ public class AuthService {
         if (StringUtils.isEmpty(sysUserVO)){
             return ResultVo.failed(ResultCode.USER_NOT_EXIST);
         }
+        StpUtil.setLoginId(sysUserVO.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return ResultVo.success(tokenInfo);
     }

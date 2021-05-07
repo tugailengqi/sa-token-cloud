@@ -30,7 +30,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (!matches){
             throw new BizException(ResultCode.USERNAME_OR_PASSWORD_ERROR);
         }
-        StpUtil.setLoginId(sysUser.getId());
         return sysUser;
     }
 
