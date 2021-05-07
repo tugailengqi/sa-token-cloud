@@ -22,7 +22,7 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     //注册用户
-
+    @PostMapping("/register")
     public ResultVo register(SysUser sysUser){
         return null;
     }
