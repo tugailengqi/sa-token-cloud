@@ -10,6 +10,59 @@ spring:
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
 
+    gateway:
+      discovery:
+        locator:
+          #是否与服务注册于发现组件进行结合，通过 serviceId 转发到具体的服务实例。
+          #默认为 false，设为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
+          enabled: true
+          ##表示将请求路径的服务名配置改成小写  因为服务注册的时候，向注册中心注册时将服务名转成大写的了
+          lower-case-service-id: true
+      globalcors: # 解决跨域
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 360000
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+              - HEAD
+        # 默认过滤器，对全部路由有效
+
+      routes:
+        - id: sa-token-auth
+          #代表从注册中心获取服务，且以lb(load-balance)负载均衡方式转发
+          uri: lb://sa-token-auth
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1 # StripPrefix=2就代表截取路径的个数，
+
+        - id: sa-token-admin
+          uri: lb://sa-token-admin
+          predicates:
+            - Path=/api/sys_user/**
+          filters:
+            - StripPrefix=1 # StripPrefix=2就代表截取路径的个数，
+
+
+# 配置白名单路径(无需登录)
+whitelist:
+  urls:
+    - /api/auth/doLogin
+    - /api/sys_user/register
+
+logging:
+  level:
+    com.unicom.gateway: debug # 输出debug、info、warn、error、fatal五种级别日志
+  config: classpath:logback-gateway.xml
 
 
 

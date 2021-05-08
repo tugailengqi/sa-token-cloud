@@ -1,4 +1,4 @@
-package com.lengqi.cloud.admin.common.utils;
+package com.lengqi.cloud.common.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

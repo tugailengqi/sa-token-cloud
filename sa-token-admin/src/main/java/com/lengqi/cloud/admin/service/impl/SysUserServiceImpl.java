@@ -1,12 +1,11 @@
 package com.lengqi.cloud.admin.service.impl;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lengqi.cloud.admin.mapper.SysUserMapper;
 import com.lengqi.cloud.admin.service.SysUserService;
-import com.lengqi.cloud.admin.common.exception.BizException;
-import com.lengqi.cloud.admin.common.result.ResultCode;
+import com.lengqi.cloud.common.exception.BizException;
+import com.lengqi.cloud.common.result.ResultCode;
 import com.lengqi.cloud.user.entity.SysUser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

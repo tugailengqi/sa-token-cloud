@@ -1,10 +1,10 @@
 package com.lengqi.cloud.admin.controller;
 
-import com.lengqi.cloud.admin.common.result.ResultCode;
-import com.lengqi.cloud.admin.common.result.ResultVo;
+import com.lengqi.cloud.common.result.ResultCode;
+import com.lengqi.cloud.common.result.ResultVo;
 import com.lengqi.cloud.admin.service.SysUserService;
-import com.lengqi.cloud.admin.common.exception.BizException;
-import com.lengqi.cloud.admin.common.utils.DateAndStringUtil;
+import com.lengqi.cloud.common.exception.BizException;
+import com.lengqi.cloud.common.utils.DateAndStringUtil;
 import com.lengqi.cloud.user.entity.SysUser;
 import com.lengqi.cloud.admin.vo.SysUserVO;
 import org.springframework.cglib.beans.BeanCopier;

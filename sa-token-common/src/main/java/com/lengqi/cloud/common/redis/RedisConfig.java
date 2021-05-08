@@ -1,4 +1,4 @@
-package com.lengqi.cloud.admin.common.redis;
+package com.lengqi.cloud.common.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

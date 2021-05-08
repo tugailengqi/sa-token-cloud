@@ -1,6 +1,6 @@
-package com.lengqi.cloud.admin.common.exception;
+package com.lengqi.cloud.common.exception;
 
-import com.lengqi.cloud.admin.common.result.IResultCode;
+import com.lengqi.cloud.common.result.IResultCode;
 import lombok.Getter;
 
 @Getter

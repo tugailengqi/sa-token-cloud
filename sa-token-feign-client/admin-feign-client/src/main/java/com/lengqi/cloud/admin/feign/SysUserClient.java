@@ -1,12 +1,10 @@
 package com.lengqi.cloud.admin.feign;
 
-import com.lengqi.cloud.admin.common.result.ResultVo;
+import com.lengqi.cloud.common.result.ResultVo;
 import com.lengqi.cloud.admin.vo.SysUserVO;
-import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("sa-token-admin")

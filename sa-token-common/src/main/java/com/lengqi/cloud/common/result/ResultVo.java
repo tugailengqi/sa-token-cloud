@@ -1,4 +1,4 @@
-package com.lengqi.cloud.admin.common.result;
+package com.lengqi.cloud.common.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

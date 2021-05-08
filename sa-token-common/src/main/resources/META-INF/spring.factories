@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lengqi.cloud.common.utils.RedisUtil,\
+  com.lengqi.cloud.common.redis.RedisConfig,\
+  com.lengqi.cloud.common.mybatis.config.MybatisPlusConfig,\
+  com.lengqi.cloud.common.mybatis.handler.FieldFillHandler,\
+  com.lengqi.cloud.common.exception.GlobalExceptionHandler,\
+  com.lengqi.cloud.common.gateway.utils.GatewayAuthUtil
+

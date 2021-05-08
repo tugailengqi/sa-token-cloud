@@ -1,10 +1,10 @@
-package com.lengqi.cloud.admin.common.mybatis.config;
+package com.lengqi.cloud.common.mybatis.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.lengqi.cloud.admin.common.mybatis.handler.FieldFillHandler;
+import com.lengqi.cloud.common.mybatis.handler.FieldFillHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

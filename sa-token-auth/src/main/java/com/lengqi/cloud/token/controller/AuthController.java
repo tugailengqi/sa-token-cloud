@@ -1,10 +1,9 @@
 package com.lengqi.cloud.token.controller;
 
-import com.lengqi.cloud.admin.common.exception.BizException;
+import cn.dev33.satoken.stp.StpUtil;
 import com.lengqi.cloud.token.service.AuthService;
-import com.lengqi.cloud.admin.common.result.ResultCode;
-import com.lengqi.cloud.admin.common.result.ResultVo;
-import com.lengqi.cloud.admin.common.utils.DateAndStringUtil;
+import com.lengqi.cloud.common.result.ResultVo;
+import com.lengqi.cloud.common.utils.DateAndStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +21,26 @@ public class AuthController {
 
     //登录
     @PostMapping("/doLogin")
-    public ResultVo doLogin(String key, String password){
+    public ResultVo<Object> doLogin(String key, String password){
 
-        if (DateAndStringUtil.isOneNull(key,password)){
-            return ResultVo.failed("请输入用户名或密码");
+        try {
+            if (DateAndStringUtil.isOneNull(key,password)){
+                return ResultVo.failed("请输入用户名或密码");
+            }
+            return authService.doLogin(key, password);
+        } catch (Exception e) {
+            return ResultVo.failed("登录失败");
         }
-        return authService.doLogin(key, password);
     }
 
     //登出
     @PostMapping("/logout")
     public ResultVo<Object> logout(){
-        return authService.logout();
+        try {
+            return authService.logout();
+        } catch (Exception e) {
+            log.error("登出异常："+e.getMessage());
+            return ResultVo.failed("退出登录异常");
+        }
     }
 }

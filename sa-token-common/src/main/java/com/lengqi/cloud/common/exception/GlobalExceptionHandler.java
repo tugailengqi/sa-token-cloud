@@ -1,7 +1,7 @@
-package com.lengqi.cloud.admin.common.exception;
+package com.lengqi.cloud.common.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.lengqi.cloud.admin.common.result.ResultVo;
+import com.lengqi.cloud.common.result.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
