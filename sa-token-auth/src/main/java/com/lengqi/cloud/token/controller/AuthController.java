@@ -1,6 +1,7 @@
 package com.lengqi.cloud.token.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.lengqi.cloud.common.utils.StpUserUtil;
 import com.lengqi.cloud.token.service.AuthService;
 import com.lengqi.cloud.common.result.ResultVo;
 import com.lengqi.cloud.common.utils.DateAndStringUtil;
@@ -29,6 +30,7 @@ public class AuthController {
             }
             return authService.doLogin(key, password);
         } catch (Exception e) {
+            log.error("doLogin:"+e.getMessage());
             return ResultVo.failed("登录失败");
         }
     }

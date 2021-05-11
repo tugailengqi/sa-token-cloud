@@ -16,7 +16,15 @@ spring:
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
 
+lengqi:
+  cloud:
+    onlyFetchByGateway: false
 
+
+logging:
+  level:
+    com.lengqi.cloud.admin: debug # 输出debug、info、warn、error、fatal五种级别日志
+  config: classpath:logback-admin.xml
 
 mybatis-plus:
   mapper-locations: classpath:/mappers/*.xml

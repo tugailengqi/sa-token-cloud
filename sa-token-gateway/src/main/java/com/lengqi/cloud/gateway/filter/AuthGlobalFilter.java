@@ -2,6 +2,7 @@ package com.lengqi.cloud.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.lengqi.cloud.common.constant.Constant;
+import com.lengqi.cloud.common.gateway.propertis.SaTokenProperties;
 import com.lengqi.cloud.common.gateway.utils.GatewayAuthUtil;
 import com.lengqi.cloud.common.utils.RedisUtil;
 import com.lengqi.cloud.gateway.config.WhiteListConfig;
@@ -29,6 +30,8 @@ import java.util.Set;
 @Slf4j
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
+    @Resource
+    private SaTokenProperties properties;
 
     @Resource
     private RedisUtil redisUtil;
@@ -55,12 +58,15 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         }
 
 
-        Integer uid = (Integer) redisUtil.get("satoken:login:token:" + saToken);
+        Integer uid = (Integer) redisUtil.get("satoken:sysUser:token:" + saToken);
         if (StringUtils.isEmpty(uid) || uid == 0){
             log.info("token不正确");
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
+        ServerHttpRequest build = request.mutate().header(Constant.SA_TOKEN, saToken).build();
+        exchange.mutate().request(build).build();
+        properties.setOnlyFetchByGateway(true);
         return chain.filter(exchange);
     }
 

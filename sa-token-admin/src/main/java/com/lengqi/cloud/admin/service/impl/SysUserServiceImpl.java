@@ -20,7 +20,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public SysUser selectByUsername(String username,String password) {
+    public SysUser selectByUsername(String username,String password) throws BizException {
         SysUser sysUser = getOne(new QueryWrapper<SysUser>().eq("username", username));
         if (StringUtils.isEmpty(sysUser)){
             throw new BizException(ResultCode.USER_NOT_EXIST);

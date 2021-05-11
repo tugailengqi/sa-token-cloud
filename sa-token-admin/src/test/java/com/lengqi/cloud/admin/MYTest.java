@@ -1,6 +1,7 @@
 package com.lengqi.cloud.admin;
 
 import cn.hutool.crypto.SecureUtil;
+import com.lengqi.cloud.common.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

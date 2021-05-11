@@ -1,4 +1,4 @@
-package com.lengqi.cloud.admin.utils;
+package com.lengqi.cloud.common.utils;
 
 import cn.dev33.satoken.fun.SaFunction;
 import cn.dev33.satoken.session.SaSession;
@@ -16,13 +16,7 @@ import java.util.List;
 public class StpUserUtil {
 
 	// 底层的 StpLogic 对象  
-	public static StpLogic stpLogic = new StpLogic("sysUser") {
-	    // 重写 `splicingKeyTokenName` 函数，返回一个与 `StpUtil` 不同的token名称, 防止冲突 
-	    @Override
-	        public String splicingKeyTokenName() {
-	            return super.splicingKeyTokenName()+"-member";
-	        }
-	}; 
+	public static StpLogic stpLogic = new StpLogic("sysUser") ;
 
 	
 	/**

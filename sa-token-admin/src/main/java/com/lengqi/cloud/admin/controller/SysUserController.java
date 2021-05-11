@@ -7,6 +7,7 @@ import com.lengqi.cloud.common.exception.BizException;
 import com.lengqi.cloud.common.utils.DateAndStringUtil;
 import com.lengqi.cloud.user.entity.SysUser;
 import com.lengqi.cloud.admin.vo.SysUserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/sys_user")
+@Slf4j
 public class SysUserController {
 
     @Resource
@@ -43,16 +45,22 @@ public class SysUserController {
                     null);
             return ResultVo.success(sysUserVO);
         } catch (BizException e) {
+            log.error(e.getMessage());
             return ResultVo.failed(ResultCode.USERNAME_OR_PASSWORD_ERROR);
         }
     }
 
     @GetMapping("/findUserById")
     public ResultVo<SysUserVO> findUserById(@RequestParam Long id){
-           SysUser sysUser = sysUserService.selectUserById(id);
-        SysUserVO sysUserVO = new SysUserVO();
-        BeanCopier.create(sysUser.getClass(),sysUserVO.getClass(),false).copy(sysUser,sysUserVO,null);
-        return ResultVo.success(sysUserVO);
+        try {
+            SysUser sysUser = sysUserService.selectUserById(id);
+            SysUserVO sysUserVO = new SysUserVO();
+            BeanCopier.create(sysUser.getClass(),sysUserVO.getClass(),false).copy(sysUser,sysUserVO,null);
+            return ResultVo.success(sysUserVO);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResultVo.failed(e.getMessage());
+        }
     }
 
 

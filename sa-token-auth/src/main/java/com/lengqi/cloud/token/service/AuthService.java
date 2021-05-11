@@ -6,6 +6,7 @@ import com.lengqi.cloud.common.result.ResultCode;
 import com.lengqi.cloud.common.result.ResultVo;
 import com.lengqi.cloud.admin.feign.SysUserClient;
 import com.lengqi.cloud.admin.vo.SysUserVO;
+import com.lengqi.cloud.common.utils.StpUserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,17 +30,19 @@ public class AuthService {
             if (StringUtils.isEmpty(sysUserVO)){
                 return ResultVo.failed(ResultCode.USER_NOT_EXIST);
             }
-            StpUtil.setLoginId(sysUserVO.getId());
-            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            StpUserUtil.setLoginId(sysUserVO.getId());
+            SaTokenInfo tokenInfo = StpUserUtil.getTokenInfo();
             return ResultVo.success(tokenInfo);
     }
 
     public ResultVo<Object> logout(){
-//            Long loginId = (Long) StpUtil.getLoginId();
-//            ResultVo<SysUserVO> resultVo = sysUserClient.findUserById(loginId);
-//         SysUserVO userVO = resultVo.getData();
-        StpUtil.logout();
-//        log.info(userVO.getNickname()+"已退出登录");
-            return ResultVo.success("登出成功");
+        String loginId = (String)StpUserUtil.getLoginId();
+        ResultVo<SysUserVO> resultVo = sysUserClient.findUserById(Long.parseLong(loginId));
+        if (StringUtils.isEmpty(resultVo)){
+            return ResultVo.failed("登出失败");
+        }
+        log.info(resultVo.getData().getUsername() +" : 已退出登录。。。。");
+        StpUserUtil.logout();
+        return ResultVo.success("登出成功");
     }
 }

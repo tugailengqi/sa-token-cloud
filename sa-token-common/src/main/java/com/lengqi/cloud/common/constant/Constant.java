@@ -21,5 +21,7 @@ public class Constant {
     /**
      * 在request的header上储存token时建议的key
      */
-    public static final String REQUEST_TOKEN_KEY = "REQUEST_TOKEN_KEY";
+    public static final String SA_TOKEN = "saToken";
+
+
 }
