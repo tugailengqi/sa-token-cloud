@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lengqi.cloud.admin.mapper.ScekillInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lengqi.cloud.user.entity.ScekillInfo">
+    <!--@mbg.generated-->
+    <!--@Table scekill_info-->
+    <id column="scekill_id" jdbcType="INTEGER" property="scekillId" />
+    <result column="scekill_username" jdbcType="VARCHAR" property="scekillUsername" />
+    <result column="scekill_phone" jdbcType="VARCHAR" property="scekillPhone" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    scekill_id, scekill_username, scekill_phone, create_time
+  </sql>
+</mapper>
